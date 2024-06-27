@@ -1,6 +1,10 @@
 name: scoreboard
 
 on:
+  schedule:
+    # min hr day mth weekday
+    - cron: '45 12-23 28 6 *'
+    - cron: '45 0-11 29 6 *'
   push:
     branches: [ main ]
   workflow_dispatch:
@@ -12,10 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
-      - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ vars.SCORE_FILE }}
-      - name: parse score
+
+      - name: Get scores
         id: score
-        run: echo "latest=$(python3 util.py ${{ vars.SCORE_FILE }})" >> $GITHUB_OUTPUT
+        run: |
+          curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ vars.SCORE_FILE }}
+          echo "latest=$(make SCORES=${{ vars.SCORE_FILE }} score)" >> $GITHUB_OUTPUT
 
       - name: Discord post
         if: ${{ env.DISCORD_WEBHOOK != '' && vars.DISCORD_ON != 0 }}
