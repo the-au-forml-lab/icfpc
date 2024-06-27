@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          response = $(curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }})
+          response=$(curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }})
           echo "${{fromJson(response).rows}}"
