@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          response=$(curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }})
-          echo "${{fromJson(response).rows}}"
+      - uses: actions/setup-python@v4
+      - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ vars.SCORE_FILE }}
+      - run: python3 -m util.py ${{ vars.SCORE_FILE }}
+
+#      - name: Discord post
+#        if: ${{ env.DISCORD_WEBHOOK != '' }}
+#        env:
+#          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#        uses: Ilshidur/action-discord@master
+#        with:
+#          args: "Scoreboard: ???"
