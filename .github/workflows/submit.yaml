@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
       - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ vars.SCORE_FILE }}
-      - run: python3 -m util.py ${{ vars.SCORE_FILE }}
+      - run: python3 util.py ${{ vars.SCORE_FILE }}
 
 #      - name: Discord post
 #        if: ${{ env.DISCORD_WEBHOOK != '' }}
