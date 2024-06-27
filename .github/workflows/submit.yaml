@@ -11,4 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }}
+      - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o scores.json
+
+      - name: read score
+        id: scores
+        run: echo "::set-output name=id::$(cat scores.json | jq -c '.workspaces[] | select(.isYou == "true").values')"
+
+      - name: print score
+        run: echo ${{ steps.scores.outputs.id }}
