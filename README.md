@@ -1,2 +1,4 @@
 # icfpc
-ICFP Contest
+
+ICFP Contest: <https://icfpcontest2024.github.io/>  
+Discord: <https://discord.gg/HtXttgvCeP> 

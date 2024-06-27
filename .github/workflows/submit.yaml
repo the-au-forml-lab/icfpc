@@ -1,4 +1,4 @@
-name: Test
+name: scoreboard
 
 on:
   push:
@@ -7,18 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  submit:
+  scores:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
       - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ vars.SCORE_FILE }}
-      - run: python3 util.py ${{ vars.SCORE_FILE }}
+      - name: parse score
+        id: score
+        run: echo "latest=$(python3 util.py ${{ vars.SCORE_FILE }})" >> $GITHUB_OUTPUT
 
-#      - name: Discord post
-#        if: ${{ env.DISCORD_WEBHOOK != '' }}
-#        env:
-#          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-#        uses: Ilshidur/action-discord@master
-#        with:
-#          args: "Scoreboard: ???"
+      - name: Discord post
+        if: ${{ env.DISCORD_WEBHOOK != '' && vars.DISCORD_ON != 0 }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "Scoreboard: ${{ steps.score.outputs.latest }}"
