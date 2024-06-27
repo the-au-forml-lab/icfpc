@@ -1,0 +1,12 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }}
