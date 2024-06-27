@@ -20,7 +20,7 @@ jobs:
       - name: Discord post
         if: ${{ env.DISCORD_WEBHOOK != '' && vars.DISCORD_ON != 0 }}
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: "Scoreboard: ${{ steps.score.outputs.latest }}"
