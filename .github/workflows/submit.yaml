@@ -15,6 +15,7 @@ jobs:
     outputs:
       matrix: ${{ steps.encoded.outputs.pids }}
     steps:
+      - uses: actions/checkout@v4
       - run: make
       - id: prob
         run: |
