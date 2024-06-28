@@ -3,11 +3,9 @@ name: GET scoreboard
 on:
   workflow_dispatch:
     branches: [ main ]
-  workflow_run:
-      workflows: ['POST submission']
-      types: [completed]
-      branches:
-        - 'main'
+  push:
+    branches: [ main ]
+  
 env:
   SCORE_FILE: "scores.json"
 
