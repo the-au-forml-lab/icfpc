@@ -25,15 +25,14 @@ jobs:
         run: |
           echo "pids=${{ toJSON(steps.prob.outputs.ids) }}" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.prob.outputs.ids }}" "${{ steps.encoded.outputs.pids }}"
-#  submit:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        pid: ${{ fromJSON(steps.build.outputs.matrix) }}
-#    steps:
-#      - run: |
-#          echo "${{ matrix.pid }}"
+  submit:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ${{ fromJSON(steps.build.outputs.matrix) }}
+    steps:
+      - run: echo "${{ matrix.target }}"
 #    steps:
 #      - id: content
 #        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
