@@ -24,11 +24,17 @@ def parse(s):
         return repr(decode_str(body))
     if indicator == 'U':
         assert len(body) == 1
-        if body == '!': return 'uNot'
-        if body == '#': return 'uDecodeNum'
-        if body == '$': return 'uEncodeNum'
-        if body == '-': return 'uNeg'
+        if body == '!': return 'not'
+        if body == '#': return 'decode_num'
+        if body == '$': return 'encode_num'
+        if body == '-': return 'neg'
                 
+def encode_num(n):
+    out = []
+    while n:
+        n, r = divmod(n, BASE)
+        out.append(chr(OFFSET + r))
+    return(''.join(out[::-1]))
 
 def decode_num(body):
     assert body != ''
