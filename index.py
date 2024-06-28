@@ -13,22 +13,6 @@ def read_file(fn):
         return fp.read()
 
 
-def parse(s):
-    indicator = s[0]
-    body = s[1:]
-    if indicator == 'T': return repr(True)
-    if indicator == 'F': return repr(False)
-    if indicator == 'I':
-        return repr(decode_num(body))
-    if indicator == 'S':
-        return repr(decode_str(body))
-    if indicator == 'U':
-        assert len(body) == 1
-        if body == '!': return 'not'
-        if body == '#': return 'decode_num'
-        if body == '$': return 'encode_num'
-        if body == '-': return 'neg'
-                
 def encode_num(n):
     out = []
     while n:
