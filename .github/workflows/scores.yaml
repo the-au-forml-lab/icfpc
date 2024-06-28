@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-  
+
 env:
   SCORE_FILE: "scores.json"
 
