@@ -13,13 +13,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.prob.outputs.ids }}
+      matrix: ${{ steps.encoded.outputs.ids }}
     steps:
       - id: prob
         run: |
           make && make problems PROBLEMS=${{ env.FN_PROB }}
-          echo "ids=${{ toJSON(cat env.FN_PROB) }}" >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.prob.outputs.ids }}"
+          echo "ids=$(cat ${{ env.FN_PROB }})" >> $GITHUB_OUTPUT
+      - id: encoded
+        run: |
+          echo "ids=${{ toJSON(steps.prob.outputs.ids) }}" >> $GITHUB_OUTPUT
+      - run: echo "${{ steps.prob.outputs.ids }}" "${{ steps.encode.outputs.ids }}"
 #  submit:
 #    needs: build
 #    runs-on: ubuntu-latest
