@@ -9,7 +9,7 @@ def main(in_file):
     rank, team, pts = next(
         ((row.values + [0])[:3] for row in data.rows
          if row.isYou), ('Team unknown', 999, 0))
-    print(f'{team} is #{rank} with score: {pts}')
+    print(f'{team} is #{rank} with score {pts}')
 
 
 if __name__ == '__main__':

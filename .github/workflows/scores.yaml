@@ -1,0 +1,37 @@
+name: GET Scoreboard
+
+on:
+  schedule:
+    # min hr day mth weekday
+    - cron: '45 12-23 28 6 *'
+    - cron: '45 0-11 29 6 *'
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    branches: [ main ]
+
+env:
+  SCORE_FILE: "scores.json"
+
+jobs:
+  scores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Get scores
+        id: score
+        run: |
+          curl --location '${{ vars.BASE_URL }}scoreboard' --header ${{ secrets.TOKEN }} -o ${{ env.SCORE_FILE }}
+          echo "latest=$(make SCORES=${{ env.SCORE_FILE }} score)" >> $GITHUB_OUTPUT
+
+      - name: Discord post
+        if: ${{ env.DISCORD_WEBHOOK != '' && vars.DISCORD_ON != 0 }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "**ICFPC Scoreboard** ${{ steps.score.outputs.latest }}"
