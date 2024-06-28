@@ -33,6 +33,16 @@ def a_star_search(grid, start, pills):
         nearest = nearest_pill(pos, remaining_pills)
         return manhattan_distance(pos, nearest) + len(remaining_pills) - 1
 
+    def is_valid_move(x, y):
+        if 0 <= y < height and 0 <= x < len(grid[y]):
+            return grid[y][x] != '#'
+        return False
+
+    def safe_grid_access(x, y):
+        if 0 <= y < height and 0 <= x < len(grid[y]):
+            return grid[y][x]
+        return '#'  # Treat out of bounds as a wall
+
     start_state = (start, goal)
     g_score = defaultdict(lambda: float('inf'))
     g_score[start_state] = 0
@@ -54,8 +64,9 @@ def a_star_search(grid, start, pills):
             return ''.join(reversed(path))
 
         for dx, dy, move in [(0, -1, 'U'), (1, 0, 'R'), (0, 1, 'D'), (-1, 0, 'L')]:
-            next_pos = (current_pos[0] + dx, current_pos[1] + dy)
-            if 0 <= next_pos[1] < height and 0 <= next_pos[0] < width and grid[next_pos[1]][next_pos[0]] != '#':
+            next_x, next_y = current_pos[0] + dx, current_pos[1] + dy
+            if is_valid_move(next_x, next_y):
+                next_pos = (next_x, next_y)
                 next_pills = current_pills - {next_pos} if next_pos in current_pills else current_pills
                 next_state = (next_pos, next_pills)
 
@@ -78,5 +89,10 @@ def solve_lambdaman(grid_string):
 if __name__ == "__main__":
     # Read input from stdin
     grid_string = sys.stdin.read()
+
+    # Debug: Print the input
+    print("Input grid:")
+    print(grid_string)
+
     solution = solve_lambdaman(grid_string)
-    print(solution)
+    print("Solution:", solution)
