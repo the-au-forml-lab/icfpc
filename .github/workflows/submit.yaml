@@ -16,6 +16,10 @@ jobs:
       matrix: ${{ steps.encoded.outputs.value }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: build
+          key: build-outputs
       - run: make
       - id: prob
         run: |
@@ -30,6 +34,11 @@ jobs:
       matrix:
         pid: ${{ fromJSON(needs.setup.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: build
+          key: build-outputs
       - id: content
         run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
       - run: |
