@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pid: ${{ steps.prob.outputs.ids }}  # run once for each known problem id
+        pid: ${{ steps.build.outputs.matrix }}  # run once for each known problem id
     steps:
       - id: content
         run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
