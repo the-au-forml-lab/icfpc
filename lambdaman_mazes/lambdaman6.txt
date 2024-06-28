@@ -1,1 +1,57 @@
 B. SF B$ B$ L" B$ L" B$ L# B$ v" B$ v# v# L# B$ v" B$ v# v# L$ L# ? B= v# I" v" B. v" B$ v$ B- v# I" Sl I#,
+
+Parsed: [
+('binary', '.', 
+	('string', 'F'), 
+	('binary', '$', 
+		('binary', '$', 
+			('lambda', 1, 
+			('binary', '$', 
+				('lambda', 1, 
+				('binary', '$', 
+					('lambda', 2, 
+					('binary', '$', 
+						('var', 1), 
+						('binary', '$', 
+							('var', 2), 
+							('var', 2)
+						)
+					)
+					), 
+					('lambda', 2, 
+					('binary', '$', 
+						('var', 1), 
+						('binary', '$', 
+							('var', 2), 
+							('var', 2)
+						)
+					)
+					)
+				)
+				), 
+				('lambda', 3, 
+				('lambda', 2, 
+					('if', 
+					('binary', '=', 
+						('var', 2), 
+						('int', 1)
+					), 
+						('var', 1), 
+						('binary', '.', 
+							('var', 1), 
+							('binary', '$', 
+								('var', 3), 
+								('binary', '-', 
+									('var', 2), 
+									('int', 1)
+								)
+							)
+						)
+					)
+				)
+				)
+			)
+			), ('string', 'l')
+		), ('int', 199)
+	)
+)]
