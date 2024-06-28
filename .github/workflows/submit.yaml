@@ -18,8 +18,7 @@ jobs:
       - id: prob
         run: |
           make && make problems PROBLEMS=${{ env.FN_PROB }}
-          echo "plain_ids=$(cat ${{ env.FN_PROB }})"
-          echo "ids=${{ toJSON(plain_ids) }}" >> $GITHUB_OUTPUT
+          echo "ids=${{ toJSON(cat env.FN_PROB) }}" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.prob.outputs.ids }}"
 #  submit:
 #    needs: build
