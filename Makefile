@@ -3,7 +3,7 @@ PROB_IDS = $(notdir $(basename $(wildcard $(BUILD_DIR)/*.txt)))
 
 noop=
 space = $(noop) $(noop)
-sep=,
+sep=,$(space)
 
 all: build
 
