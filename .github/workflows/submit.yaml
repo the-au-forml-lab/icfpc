@@ -22,19 +22,19 @@ jobs:
           make problems PROBLEMS=${{ env.FN_PROB }}
           echo "ids=$(cat ${{ env.FN_PROB }})" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.prob.outputs.ids }}"
-#  submit:
-#    runs-on: ubuntu-latest
-#    needs: build
-#    strategy:
-#      matrix:
-#        pid: ${{ steps.prob.outputs.ids }}  # for each problem id
-#    steps:
-#      - id: content
-#        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
-#      - name: post solution
-#        run: |
-#          echo "${{ matrix.pid }}"
-#          echo "${{ steps.content.outputs.body }}"
+  submit:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pid: ${{ steps.prob.outputs.ids }}  # run once for each known problem id
+    steps:
+      - id: content
+        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
+      - name: post solution
+        run: |
+          echo "${{ matrix.pid }}"
+          echo "${{ steps.content.outputs.body }}"
 #          curl --location '${{ vars.BASE_URL }}submission' \
 #          --header ${{ secrets.TOKEN }} \
 #          --header 'Content-Type: text/plain' \
