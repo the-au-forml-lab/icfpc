@@ -8,7 +8,7 @@ sep=,$(space)
 all: build
 
 build:
-# generate solutions in build directory, the file names are problem numbers
+# put solutions in build directory and the file names are problem numbers
 	@mkdir -p $(BUILD_DIR)
 	@echo "hello" > $(BUILD_DIR)/1.txt
 	@echo "world" > $(BUILD_DIR)/2.txt
@@ -22,4 +22,4 @@ score: $(SCORES)
 clean:
 	@rm -rf $(BUILD_DIR)
 
-PHONY: build
+PHONY: build problems score clean
