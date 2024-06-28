@@ -15,22 +15,20 @@ jobs:
     outputs:
       matrix: ${{ steps.prob.outputs.ids }}
     steps:
-      - uses: actions/checkout@v4
-      - run: make
       - id: prob
         run: |
-          make problems PROBLEMS=${{ env.FN_PROB }}
-          echo "ids=$(cat ${{ env.FN_PROB }})" >> $GITHUB_OUTPUT
+          make && make problems PROBLEMS=${{ env.FN_PROB }}
+          echo "ids=${{ toJSON( $(cat ${{ env.FN_PROB }})) }}" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.prob.outputs.ids }}"
-  submit:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        pid: ${{ fromJSON(steps.build.outputs.matrix) }}
-    steps:
-      - run: |
-          echo "${{ matrix.pid }}"
+#  submit:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        pid: ${{ fromJSON(steps.build.outputs.matrix) }}
+#    steps:
+#      - run: |
+#          echo "${{ matrix.pid }}"
 #    steps:
 #      - id: content
 #        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
