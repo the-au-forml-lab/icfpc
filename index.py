@@ -40,4 +40,6 @@ def indicator(s):
 
 
 if __name__ == '__main__':
-    print(parse(read_file(argv[1])))
+    # print(parse(read_file(argv[1])))
+
+    print(encode_str(read_file(argv[1])))
