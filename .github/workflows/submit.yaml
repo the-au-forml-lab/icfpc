@@ -27,14 +27,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pid: ${{ steps.build.outputs.matrix }}  # run once for each known problem id
+        pid: ${{ fromJSON(steps.build.outputs.matrix) }}
     steps:
-      - id: content
-        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
-      - name: post solution
-        run: |
+      - run: |
           echo "${{ matrix.pid }}"
-          echo "${{ steps.content.outputs.body }}"
+#    steps:
+#      - id: content
+#        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
+#      - name: post solution
+#        run: |
+#          echo "${{ matrix.pid }}"
+#          echo "${{ steps.content.outputs.body }}"
 #          curl --location '${{ vars.BASE_URL }}submission' \
 #          --header ${{ secrets.TOKEN }} \
 #          --header 'Content-Type: text/plain' \
