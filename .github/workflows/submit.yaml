@@ -23,22 +23,18 @@ jobs:
           echo "ids=$(cat ${{ env.FN_PROB }})" >> $GITHUB_OUTPUT
       - id: encoded
         run: echo "value=${{ toJSON(steps.prob.outputs.ids) }}" >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.encoded.outputs.value }}"
   submit:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJSON(needs.setup.outputs.matrix) }}
+        pid: ${{ fromJSON(needs.setup.outputs.matrix) }}
     steps:
-      - run: echo "${{ matrix.value }}"
-#    steps:
-#      - id: content
-#        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
-#      - name: post solution
-#        run: |
-#          echo "${{ matrix.pid }}"
-#          echo "${{ steps.content.outputs.body }}"
+      - id: content
+        run: echo "body=$(cat build/${{ matrix.pid }}.txt)" >> $GITHUB_OUTPUT
+      - run: |
+          echo "${{ matrix.pid }}"
+          echo "${{ steps.content.outputs.body }}"
 #          curl --location '${{ vars.BASE_URL }}submission' \
 #          --header ${{ secrets.TOKEN }} \
 #          --header 'Content-Type: text/plain' \
