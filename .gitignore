@@ -2,3 +2,4 @@ scores.json
 problems.txt
 build/
 __pycache__/
+.own
