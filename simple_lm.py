@@ -155,5 +155,6 @@ def main(puzzle):
     print(dirs)
     print(len(dirs))
 
+
 if __name__ == '__main__':
     main('lambdaman_mazes/lambdaman1.txt')

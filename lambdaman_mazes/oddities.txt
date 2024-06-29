@@ -1,4 +1,3 @@
 Maze 6
 Maze 9
-Maze 10
 Maze 21

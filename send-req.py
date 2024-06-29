@@ -13,7 +13,7 @@ headers = {
 }
 
 if __name__ == '__main__':
-    input_str = input('type message to send:\n> ') if len(argv) == 0 else ' '.join(argv[1:])
+    input_str = input('type message to send:\n> ') if len(argv) == 1 else ' '.join(argv[1:])
     payload = 'S' + encode_str(input_str)
     response = requests.request("POST", url, headers=headers, data=payload).text[1:]
     print(decode_str(response))
