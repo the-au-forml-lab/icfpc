@@ -1,5 +1,6 @@
 from parsec import generate, regex, string, many, ParseError
 import string as pystring
+from index import decode_str
 
 # Helper functions
 def to_int(chars):
@@ -27,7 +28,7 @@ def integer():
 def string_literal():
     yield string('S')
     content = yield regex(r'[!-~]+')
-    return ('string', content)
+    return 'string', decode_str(content)
 
 @generate
 def unary_op():
