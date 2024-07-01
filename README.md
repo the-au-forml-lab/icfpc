@@ -5,10 +5,10 @@ We competed in the 24h lightning division, June 28—29, 2024. This was our firs
 ### Team ΔΛΔ members
 
 * [Peter Hanukaev](https://peterhanukaev.com/)
-* Mark Holcomb
+* [Mark Holcomb](https://github.com/marknoodle)
 * [Neea Rusch](https://nkrusch.github.io/)
-* Vignesh Sivakumar
-* Jason Weeks
+* [Vignesh Sivakumar](https://github.com/knoxrm)
+* [Jason Weeks](https://github.com/jweeks2023)
 
 ### Writeup
 
